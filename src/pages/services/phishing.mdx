@@ -1,0 +1,64 @@
+---
+title: "Phishing & Social Engineering"
+layout: '~/layouts/MarkdownLayout.astro'
+---
+
+From emails, to voice calls, to deep-fakes; our baitmasters catch phish. 
+
+
+## Objective:
+Phishing Simulation Testing is aimed at assessing an organization's susceptibility to phishing attacks. This is a method used by attackers to deceive individuals into disclosing sensitive information or performing dangerous actions that compromise security. This form of testing evaluates both the technical defenses against phishing, such as email filtering systems, and the human aspect of security awareness among employees.
+
+We've also got capabilities for intergrating deep fakes into our social engineering, including one-way and conversational audio, as well as video. 
+## Scope and Methodology:
+The methodology for phishing simulation testing involves the design, deployment, and analysis of controlled phishing campaigns that mimic the tactics, techniques, and procedures employed by real-world attackers. These simulations are tailored to gauge the response of employees to phishing attempts, identify potential weaknesses in security awareness training, and measure the effectiveness of technical email defenses.
+
+## Features:
+
+- **Campaign Design:** Crafting realistic phishing emails or messages that replicate various types of phishing attacks, including spear-phishing, whaling, and social engineering tactics. The design process considers current trends in phishing and incorporates elements that are likely to be encountered by employees in their daily work.
+
+- **Target Selection:** Identifying target groups within the organization for the simulation. Targets can range from a broad cross-section of employees to specific departments or roles more likely to be targeted by attackers.
+
+- **Deployment:** Sending the phishing emails or messages to the selected targets within a controlled environment. This step is conducted with care to ensure no actual harm comes to the organization's systems or data.
+
+- **Response Monitoring and Analysis:** Monitoring the responses to the phishing attempts, including who opened the emails, clicked on links, submitted data, or reported the email as suspicious. This data is then analyzed to assess the organization's vulnerability to phishing attacks.
+
+- **Awareness and Training Evaluation:** Evaluating the effectiveness of existing security awareness and training programs based on the response to the phishing simulations. Identifying areas where additional training or communication may be necessary.
+
+- **Technical Defense Assessment:** Assessing the performance of email filtering systems and other technical defenses in preventing phishing emails from reaching end users.
+
+- **Reporting and Recommendations:** Providing detailed reports on the outcomes of the phishing simulation, including metrics on employee responses, effectiveness of technical defenses, and recommendations for improving both human and technical responses to phishing attacks.
+
+This methodology not only identifies potential vulnerabilities to phishing within an organization but also serves as a practical exercise to enhance employee awareness and readiness against phishing threats. By simulating real-world phishing scenarios, organizations can better understand their risk exposure and take proactive steps to strengthen their defenses against phishing attacks.
+
+## Scoping Parameters:
+Scoping for phishing simulation testing involves determining the breadth of the campaign, including target selection, the variety of phishing templates to be used, and the duration of the testing period. It should clearly outline the objectives of the testing, specify any limitations to prevent operational disruptions, and define the criteria for success.
+
+## Engagement Scale and Duration:
+The scale and duration of a phishing simulation test can vary based on the size of the organization, the number of employees targeted, and the desired depth of the exercise. Engagements can range from single, targeted campaigns to comprehensive testing that spans several months and includes multiple phishing scenarios.
+
+> Note: Customization is key in phishing simulation testing to ensure the scenarios are relevant and reflective of the threats the organization is most likely to face, thereby maximizing the educational value of the exercise.
+
+---
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+  
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',  
+        text: 'Get In Touch',
+        href: '/contact',
+        target: '_blank',
+        icon: 'tabler:phone-check',
+      },
+    ]}  
+  >
+    <Fragment slot="title">
+      Secure Your Future
+    </Fragment>
+    
+    <Fragment slot="subtitle">
+      Contact us now to start building a stronger, more resilient security posture.
+    </Fragment>  
+  </CallToAction>

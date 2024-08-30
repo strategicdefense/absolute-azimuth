@@ -1,10 +1,8 @@
 ---
-import Features2 from '~/components/widgets/Features2.astro';
-import Features3 from '~/components/widgets/Features3.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import Steps2 from '~/components/widgets/Steps2.astro';
+import Content from '~/components/widgets/Content-nogreencheck.astro';
 import Layout from '~/layouts/PageLayout.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Hero from '~/components/widgets/Hero.astro';
 
 const metadata = {
   title: 'About us',
@@ -12,217 +10,178 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
+
+
   <!-- Hero Widget ******************* -->
 
   <Hero
-    tagline="About us"
-    image={{
-      src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Caos Image',
-    }}
   >
     <Fragment slot="title">
-      Elevate your online presence with our <br />
-      <span class="text-accent dark:text-white highlight"> Beautiful Website Templates</span>
+      Our Mission
     </Fragment>
 
     <Fragment slot="subtitle">
-      Donec efficitur, ipsum quis congue luctus, mauris magna convallis mauris, eu auctor nisi lectus non augue. Donec
-      quis lorem non massa vulputate efficitur ac at turpis. Sed tincidunt ex a nunc convallis, et lobortis nisi tempus.
-      Suspendisse vitae nisi eget tortor luctus maximus sed non lectus.
+      At Strategic Defense, we've been in the trenches of cybersecurity for years, designing, building, and scaling some of the industry's most notable offensive security 
+	practices. We've witnessed firsthand the pitfalls of overworked consultants, where corners are cut, and critical vulnerabilities are missed—leaving organizations with a 
+	false sense of security.
+    </Fragment>
+
     </Fragment>
   </Hero>
 
-  <!-- Stats Widget ****************** -->
+  <!-- Hero Widget ******************* -->
 
-  <Stats
-    title="Statistics about us"
-    stats={[
-      { title: 'Offices', amount: '4' },
-      { title: 'Employees', amount: '248' },
-      { title: 'Templates', amount: '12' },
-      { title: 'Awards', amount: '24' },
-    ]}
-  />
 
-  <!-- Features3 Widget ************** -->
-
-  <Features3
-    title="Our templates"
-    subtitle="Etiam scelerisque, enim eget vestibulum luctus, nibh mauris blandit nulla, nec vestibulum risus justo ut enim. Praesent lacinia diam et ante imperdiet euismod."
-    columns={3}
-    isBeforeContent={true}
-    items={[
-      {
-        title: 'Educational',
-        description:
-          'Morbi faucibus luctus quam, sit amet aliquet felis tempor id. Cras augue massa, ornare quis dignissim a, molestie vel nulla.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Interior Design',
-        description:
-          'Vivamus porttitor, tortor convallis aliquam pretium, turpis enim consectetur elit, vitae egestas purus erat ac nunc nulla.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Photography',
-        description:
-          'Duis sed lectus in nisl vehicula porttitor eget quis odio. Aliquam erat volutpat. Nulla eleifend nulla id sem fermentum.',
-        icon: 'tabler:template',
-      },
-    ]}
-  />
-
-  <!-- Features3 Widget ************** -->
-
-  <Features3
-    columns={3}
-    isAfterContent={true}
-    items={[
-      {
-        title: 'E-commerce',
-        description:
-          'Rutrum non odio at vehicula. Proin ipsum justo, dignissim in vehicula sit amet, dignissim id quam. Sed ac tincidunt sapien.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Blog',
-        description:
-          'Nullam efficitur volutpat sem sed fringilla. Suspendisse et enim eu orci volutpat laoreet ac vitae libero.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Business',
-        description:
-          'Morbi et elit finibus, facilisis justo ut, pharetra ipsum. Donec efficitur, ipsum quis congue luctus, mauris magna.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Branding',
-        description:
-          'Suspendisse vitae nisi eget tortor luctus maximus sed non lectus. Cras malesuada pretium placerat. Nullam venenatis dolor a ante rhoncus.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Medical',
-        description:
-          'Vestibulum malesuada lacus id nibh posuere feugiat. Nam volutpat nulla a felis ultrices, id suscipit mauris congue. In hac habitasse platea dictumst.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Fashion Design',
-        description:
-          'Maecenas eu tellus eget est scelerisque lacinia et a diam. Aliquam velit lorem, vehicula id fermentum et, rhoncus et purus.',
-        icon: 'tabler:template',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
-      alt: 'Colorful Image',
-    }}
-  />
-
-  <!-- Steps2 Widget ****************** -->
-
-  <Steps2
-    title="Our values"
-    subtitle="Maecenas eu tellus eget est scelerisque lacinia et a diam. Aliquam velit lorem, vehicula id fermentum et, rhoncus et purus. Nulla facilisi. Vestibulum malesuada lacus."
-    items={[
-      {
-        title: 'Customer-centric approach',
-        description:
-          'Donec id nibh neque. Quisque et fermentum tortor. Fusce vitae dolor a mauris dignissim commodo. Ut eleifend luctus condimentum.',
-      },
-      {
-        title: 'Constant Improvement',
-        description:
-          'Phasellus laoreet fermentum venenatis. Vivamus dapibus pulvinar arcu eget mattis. Fusce eget mauris leo.',
-      },
-      {
-        title: 'Ethical Practices',
-        description:
-          'Vestibulum imperdiet libero et lectus molestie, et maximus augue porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
-      },
-    ]}
-  />
-
-  <!-- Steps2 Widget ****************** -->
-
-  <Steps2
-    title="Achievements"
-    subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis, quam nec venenatis lobortis, mi risus tempus nulla, sed porttitor est nibh at nulla."
-    isReversed={true}
-    callToAction={{
-      text: 'See more',
-      href: '/',
-    }}
-    items={[
-      {
-        title: 'Global reach',
-        description: 'Nam malesuada urna in enim imperdiet tincidunt. Phasellus non tincidunt nisi, at elementum mi.',
-        icon: 'tabler:globe',
-      },
-      {
-        title: 'Positive customer feedback and reviews',
-        description:
-          'Cras semper nulla leo, eget laoreet erat cursus sed. Praesent faucibus massa in purus iaculis dictum.',
-        icon: 'tabler:message-star',
-      },
-      {
-        title: 'Awards and recognition as industry experts',
-        description:
-          'Phasellus lacinia cursus velit, eu malesuada magna pretium eu. Etiam aliquet tellus purus, blandit lobortis ex rhoncus vitae.',
-        icon: 'tabler:award',
-      },
-    ]}
-  />
-
-  <!-- Features2 Widget ************** -->
+ <!-- Features2 Widget ************** -->
 
   <Features2
-    title="Our locations"
-    tagline="Find us"
-    columns={4}
+    title="What Sets Us Apart?"
+    subtitle="Our commitment to quality is uncompromising. We believe that true security comes from careful, deliberate work, not from rushing to meet unrealistic utilization targets. Here's what you can expect from us:"
     items={[
       {
-        title: 'EE.UU',
-        description: '1234 Lorem Ipsum St, 12345, Miami',
+        title: 'Expertise You Can Trust',
+        description:
+          'Our team consists of well-trained professionals who operate far below the industry-standard 300% utilization, ensuring meticulous attention to detail. Some of our experts might even be the authors of your favorite CVEs.',
+        icon: 'tabler:clipboard-data',
       },
       {
-        title: 'Spain',
-        description: '5678 Lorem Ipsum St, 56789, Madrid',
+        title: 'Real-World Methodologies',
+        description:
+          "We don't rely on scanner checklists. Our approach is rooted in goal-based offensive security testing that mimics the tactics of real-world adversaries.",
+        icon: 'tabler:world-bolt',
       },
       {
-        title: 'Australia',
-        description: '9012 Lorem Ipsum St, 90123, Sydney',
+        title: 'Tailored Threat Models',
+        description:
+          'We take the time to understand your organization and work through threat models that are relevant to you.',
+        icon: 'tabler:app-window',
       },
-      {
-        title: 'Brazil',
-        description: '3456 Lorem Ipsum St, 34567, São Paulo',
+    {
+        title: 'Value-Driven Engagements',  
+        description:
+          'Our engagements are scoped to deliver maximum value, hitting the sweet spot between thoroughness and efficiency.',
+        icon: 'tabler:wand',
+      },
+    {
+        title: 'A Passion for Excellence',  
+        description:
+          'We take pride in finding critical vulnerabilities that others miss, and we love doing right by our customers.',
+        icon: 'tabler:tool',
+      },
+    {
+        title: 'Offense for Your Defense',  
+        description:
+          'We believe in the power of offense to strengthen defense. By giving your defenders a skilled sparring partner, we help them grow and improve over time, building stronger security from the inside out.',
+        icon: 'tabler:shield-check-filled',
       },
     ]}
-  />
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Features2>
 
-  <!-- Features2 Widget ************** -->
+  <!-- Features Widget *************** -->
 
-  <Features2
-    title="Technical Support"
-    tagline="Contact us"
-    columns={2}
+
+
+
+<Content
+    title="Meet the Team"
+    subtitle="Meet the experts behind our success. Our team is composed of seasoned cybersecurity professionals who bring years of experience, specialized knowledge, and a shared commitment to protecting your organization from evolving threats."
+    isReversed
     items={[
       {
-        title: 'Chat with us',
         description:
-          'Integer luctus laoreet libero, auctor varius purus rutrum sit amet. Ut nec molestie nisi, quis eleifend mi.',
-        icon: 'tabler:messages',
-      },
-      {
-        title: 'Call us',
-        description:
-          'Mauris faucibus finibus orci, in posuere elit viverra non. In hac habitasse platea dictumst. Cras lobortis metus a hendrerit congue.',
-        icon: 'tabler:headset',
+          'Shannon is a seasoned leader in the cybersecurity industry bringing with her over two decades in the tech sector. With a strong focus on helping businesses preserve brand integrity, she is dedicated to assisting organizations establish robust security practices with the goal of uninterrupted revenue generation or business operations stemming from cybersecurity incidents. Shannon’s extensive expertise stems from renowned companies such as AMD, Trustwave, Secureworks, IBM, Kudelski Security and as the Founder of Ryze Security.',
       },
     ]}
-  />
+image={{
+      src: '/assets/images/team/shannon.png',
+      alt: 'Shannon',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        Shannon Garcia
+      </h3>
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+<Content
+    items={[
+      {
+        description:
+          'Josh has spent the past six years working in cybersecurity at a number of organizations. He spent portions of that time doing manual network and wireless pentesting. He also spent a few years as strategic advisor to companies large and small. More recently, he’s worked to grow his own practice as a tester and advisor. Josh is excited to be a part of Strategic Defense and am eager to partner with organizations to identify and help remediate security gaps. Josh is also proud to hold several certifications including Project Management Professional (PMP), CompTIA Security+, and Offensive Security Wireless Professional.', 
+      },
+    ]} 
+image={{                   
+      src: '/assets/images/team/huck.png',                                                                                                                                                              
+      alt: 'Joshua Huckaby',
+    }}
+  >   
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        Joshua Huckaby              
+      </h3>
+    </Fragment>
+    
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>   
+
+  <!-- Content Widget **************** -->
+
+<Content
+    isReversed
+    items={[
+      {
+        description:
+          'Rick enjoys things that rust and run on diesel, and even though we jest that he embodies a modern-day redneck, he seamlessly transitions between constructing loaf sheds for horses and coding or hacking applications. Holding a degree in computer science from Washington State University, Rick boasts three decades of experience in the tech sector. His expertise encompasses coding and spearheading high-performance penetration testing teams, with a dedication to delivering exceptional value to clients and resolving their cybersecurity concerns. Whether tending to his farm on a tractor or pondering ways to enhance client cybersecurity, Rick remains deeply immersed in both worlds.', 
+      },
+    ]} 
+image={{                   
+      src: '/assets/images/team/rick.jpg',
+      alt: 'Rick Hein',
+    }}
+  >   
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        Rick Hein     
+      </h3>
+    </Fragment>
+    
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>   
+  
+<Content
+    items={[  
+      {
+        description:
+          'Along a 30 year journey in cybersecurity, David has amassed not just an impressive collection of retro conference badges, but also a wealth of experience in leading well-known organizations through prevention, containment, and recovery from significant cyber incidents. David has been a part of some pretty remarkable teams: from contributing to the team that first brought the web browser into existence to rolling out the first firewalls at AT&T Bell Laboratories. After recent leadership roles at IBM Security and DXC Technology, David is now excited to reunite with his colleagues from one of the most esteemed global penetration testing teams. Together, we are dedicated to leveraging elite talent and advanced technologies to tackle our clients’ toughest cyber challenges.',
+      },
+    ]}  
+image={{
+      src: '/assets/images/team/langlands.jpg',
+      alt: 'David Langlands',
+    }}
+  >   
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        David Langlands
+      </h3>
+    </Fragment>
+    
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>   
+
 </Layout>

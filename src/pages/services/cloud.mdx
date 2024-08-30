@@ -1,0 +1,53 @@
+---
+title: "Cloud Penetration Testing"
+layout: '~/layouts/MarkdownLayout.astro'
+---
+
+Cloud testing options for outside-in, inside-out, or any other type of cloud model you can cook up.
+
+## Objective:
+
+Cloud Penetration Testing is designed to assess the security of cloud-based infrastructure and services. The aim is to identify vulnerabilities within cloud environments that could be exploited by external or internal threats. While Strategic Defense offers more in-depth testing options against individual cloud features (API testing, application testing, network testing, etc), this test serves to efficiently blend portions of methodology from each. 
+
+## Methodology:
+This methodology encompasses an evaluation of public, private, and hybrid cloud models, targeting Infrastructure as a Service (IaaS), Platform as a Service (PaaS), and Software as a Service (SaaS) components. It involves a combination of automated and manual testing techniques to probe for vulnerabilities in cloud configurations, identity and access management, data encryption, and network controls. Features include:
+ 
+- **Cloud Configuration and Management Review:** Examination of cloud service configurations and management interfaces for misconfigurations or insecure settings that could expose resources to unauthorized access or data leakage.
+- **Identity and Access Management (IAM) Testing:** Assessing IAM policies and practices to ensure they enforce the principle of least privilege, prevent unauthorized access, and protect against identity-based attacks.
+- **Network Security and Segmentation:** Evaluating network access controls, firewall configurations, and network segmentation practices within the cloud environment to prevent unauthorized network access and lateral movement.
+- **Application Security in Cloud Environments:** Testing applications deployed in the cloud for vulnerabilities, including those listed in the OWASP Top 10, specifically focusing on issues that arise from cloud-based deployments.
+- **API Security:** Assessing the security of APIs used for cloud resource management and application interactions, focusing on authentication, authorization, data validation, and encryption.
+ 
+This methodology aims to provide an assessment of cloud security controls, practices, and architectures, taking into consideration the unique aspects of cloud computing. By identifying and exploiting vulnerabilities, the testing seeks to determine the real-world risk associated with cloud deployments, offering actionable insights for enhancing cloud security posture.
+
+## Scoping Parameters:
+Scoping for cloud penetration testing involves identifying the cloud platforms, services, and resources to be assessed. It should define clear testing objectives, specify any areas or functionalities that are off-limits to prevent service disruption, and establish a timeline for the testing process.
+
+## Engagement Scale and Duration:
+The scale and duration of a cloud penetration test can vary significantly based on the complexity of the cloud environment and the breadth of services to be tested. Engagements can range from targeted assessments of specific cloud services to comprehensive evaluations of extensive cloud architectures spanning multiple providers.
+
+> Note: For complex cloud environments or multi-cloud architectures, custom scoping is essential to accurately define testing parameters and ensure a thorough evaluation of the cloud security landscape.
+
+---
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+  
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',  
+        text: 'Get In Touch',
+        href: '/contact',
+        target: '_blank',
+        icon: 'tabler:phone-check',
+      },
+    ]}  
+  >
+    <Fragment slot="title">
+      Secure Your Future
+    </Fragment>
+    
+    <Fragment slot="subtitle">
+      Contact us now to start building a stronger, more resilient security posture.
+    </Fragment>  
+  </CallToAction>

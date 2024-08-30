@@ -1,0 +1,63 @@
+---
+title: "API Security Assessment"
+layout: '~/layouts/MarkdownLayout.astro'
+---
+
+Comprehensive API security testing, designed for any size endpoint, powered by OWASP Top 10. 
+
+
+## Objective:
+Web API Penetration Testing is specifically aimed at evaluating the security of Application Programming Interfaces (APIs) that applications use to communicate with each other over the web. This testing focuses on identifying security vulnerabilities that could be exploited in API endpoints, including issues related to authentication, authorization, data validation, and the handling of sensitive data. The goal is to ensure that APIs are secure from external threats and that they robustly manage data exchange to prevent unauthorized access, data breaches, and other security incidents.
+
+## Scope and Methodology:
+The assessment process scrutinizes the security mechanisms of web APIs across various stages, from initial access and authentication to data handling and output. It involves a comprehensive analysis of both RESTful APIs and SOAP-based services, covering a wide range of potential security issues.
+
+## Features:
+
+- **Authentication and Authorization Testing:** Evaluating mechanisms for API authentication and authorization to ensure that they cannot be bypassed or exploited, securing access to sensitive functions and data.
+
+- **Input Validation:** Testing for vulnerabilities related to improper input validation, such as SQL injection, Cross-Site Scripting (XSS), and other injection flaws, which could allow attackers to manipulate API requests to access or modify data illicitly.
+
+- **Data Handling and Encryption:** Assessing the handling of sensitive data by the API, including encryption of data in transit and at rest, to protect against data interception and leakage.
+
+- **Rate Limiting and Throttling:** Evaluating the implementation of rate limiting and throttling to prevent abuse of the API, such as Denial of Service (DoS) attacks or brute force attempts.
+
+- **Business Logic Vulnerabilities:** Identifying vulnerabilities that exploit the business logic of the application, potentially leading to unauthorized actions or access within the API.
+
+- **Configuration and Deployment Security:** Reviewing the API's deployment environment and configuration settings for potential security misconfigurations or weaknesses.
+
+- **Error Handling and Logging:** Examining the API's error handling and logging mechanisms to ensure that they do not expose sensitive information or contribute to other vulnerabilities.
+
+This methodology emulates the strategies employed by real-world attackers to exploit vulnerabilities in web APIs, offering a realistic assessment of an organization’s API security posture. By identifying and exploiting weaknesses, the testing seeks to determine the real-world risk associated with these vulnerabilities, providing actionable insights for remediation.
+
+## Scoping Parameters:
+Scoping for web API penetration testing involves defining the specific APIs to be tested, including their endpoints, methods, and any related applications or services. The scope should also outline the testing objectives, identify any out-of-scope elements to avoid disrupting operational activities, and establish a timeline for the testing process.
+
+## Engagement Scale and Duration:
+The scale and duration of a web API penetration test can vary significantly based on the complexity and number of APIs to be tested. Engagements can range from targeting a single API with a limited set of endpoints to comprehensive testing across multiple APIs within an organization’s infrastructure.
+
+> Note: For extensive API environments or complex integrations, custom scoping is necessary to accurately define the testing parameters and ensure a thorough evaluation of the API security landscape.
+
+---
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+  
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',  
+        text: 'Get In Touch',
+        href: '/contact',
+        target: '_blank',
+        icon: 'tabler:phone-check',
+      },
+    ]}  
+  >
+    <Fragment slot="title">
+      Secure Your Future
+    </Fragment>
+    
+    <Fragment slot="subtitle">
+      Contact us now to start building a stronger, more resilient security posture.
+    </Fragment>  
+  </CallToAction>

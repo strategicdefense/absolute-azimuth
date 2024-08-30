@@ -1,6 +1,6 @@
 site:
-  name: AstroWind
-  site: 'https://astrowind.vercel.app'
+  name: Strategic Defense
+  site: 'https://strategicdefense.co'
   base: '/'
   trailingSlash: false
 
@@ -9,23 +9,19 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: AstroWind
-    template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+    default: Strategic Defense
+    template: '%s'
+  description: "\U0001F680 Expert-led, goal-based penetration testing services that help keep you one step ahead of the bad guys. All the good stuff, with zero fluff, tailored to the TTPs used by real-world threat actors."
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: AstroWind
+    site_name: Strategic Defense
     images:
-      - url: '~/assets/images/default.png'
+      - url: '~/assets/images/colorfulcomputer.png'
         width: 1200
         height: 628
     type: website
-  twitter:
-    handle: '@onwidget'
-    site: '@onwidget'
-    cardType: summary_large_image
 
 i18n:
   language: en
@@ -38,7 +34,7 @@ apps:
 
     post:
       isEnabled: true
-      permalink: '/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
+      permalink: '/blog/%year%/%month%/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
       robots:
         index: true
 
@@ -66,7 +62,7 @@ apps:
 analytics:
   vendors:
     googleAnalytics:
-      id: null # or "G-XXXXXXXXXX"
+      id: "GTM-PLJ3SFBW"
 
 ui:
   theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"

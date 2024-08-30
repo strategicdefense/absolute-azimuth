@@ -13,7 +13,7 @@ import Stats from '~/components/widgets/Stats.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const metadata = {
-  title: 'AstroWind — Free template for creating websites with Astro + Tailwind CSS',
+  title: 'Strategic Defense',
   ignoreTitleTemplate: true,
 };
 ---
@@ -21,107 +21,85 @@ const metadata = {
 <Layout metadata={metadata}>
   <!-- Hero Widget ******************* -->
 
-  <Hero
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Get template',
-        href: 'https://github.com/onwidget/astrowind',
-        target: '_blank',
-        icon: 'tabler:download',
-      },
-      { text: 'Learn more', href: '#features' },
-    ]}
-    image={{ src: '~/assets/images/hero-image.png', alt: 'AstroWind Hero Image' }}
-  >
-    <Fragment slot="title">
-      Free template for <span class="hidden xl:inline">creating websites with</span>
-      <span class="text-accent dark:text-white highlight"> Astro 4.0</span> + Tailwind CSS
-    </Fragment>
+<Hero
+  actions={[
+    { text: 'Learn more', href: '#features' },
+  ]}
+  image={{ src: '~/assets/images/colorfulcomputer.webp', alt: 'SD Hero Image' }}
+>
+  <Fragment slot="title">
+    Advanced Adversarial Testing Services Tailored to Any Threat Model
+  </Fragment>
 
-    <Fragment slot="subtitle">
-      <span class="hidden sm:inline">
-        <span class="font-semibold">AstroWind</span> is a free, customizable and production-ready template for Astro 4.0
-        + Tailwind CSS.</span
-      >
-      <span class="block mb-1 sm:hidden font-bold text-blue-600">AstroWind: Production-ready.</span>
-      Suitable for Startups, Small Business, SaaS websites, Professional Portfolios, Marketing websites, Landing Pages &
-      Blogs.
-    </Fragment>
-  </Hero>
+  <Fragment slot="subtitle">
+    <span class="hidden sm:inline">
+      We help you get clear results, find your flaws, and test your security stack.
+    </span>
+  </Fragment>
+</Hero>
 
   <!-- Note Widget ******************* -->
 
-  <Note />
+   <Note />
 
   <!-- Features Widget *************** -->
 
   <Features
     id="features"
-    tagline="Features"
-    title="What you get with AstroWind"
-    subtitle="One of the most professional and comprehensive templates currently on the market. Most starred & forked Astro theme in 2022."
+    title="What you get with Strategic Defense"
+    subtitle="Expert-led, goal-based penetration testing services that help keep you one step ahead of the bad guys. All the good stuff, with zero fluff, tailored to the TTPs used by real-world threat actors."
     items={[
-      {
-        title: 'Astro + Tailwind CSS Integration',
-        description:
-          'A seamless integration between two great frameworks that offer high productivity, performance and versatility.',
-        icon: 'tabler:brand-tailwind',
-      },
-      {
-        title: 'Ready-to-use Components',
-        description:
-          'Widgets made with Tailwind CSS ready to be used in Marketing Websites, SaaS, Blogs, Personal Profiles, Small Business...',
-        icon: 'tabler:components',
-      },
-      {
-        title: 'Best Practices',
-        description:
-          'Creating secure, efficient, and user-friendly websites that deliver exceptional experiences and lasting value.',
-        icon: 'tabler:list-check',
-      },
-      {
-        title: 'Excellent Page Speed',
-        description:
-          'Having a good page speed impacts organic search ranking, improves user experience (UI/UX) and increase conversion rates.',
-        icon: 'tabler:rocket',
-      },
-      {
-        title: 'Search Engine Optimization (SEO)',
-        description:
-          "SEO lies in its ability to enhance a website's visibility, driving organic traffic and enabling it to reach a wider audience.",
-        icon: 'tabler:arrows-right-left',
-      },
-      {
-        title: 'Open to new ideas and contributions',
-        description:
-          'Embracing a culture that is open to new ideas and contributions is integral fostering innovation, collaboration, and a dynamic user experience.',
-        icon: 'tabler:bulb',
-      },
-    ]}
+  {
+    title: 'Tailored Security Solutions',
+    description: 'Customized security assessments and strategies designed to meet the specific needs and threat models of your business. Every engagement is tailored to your unique environment, ensuring maximum relevance and effectiveness.',
+    icon: 'tabler:shield-lock',
+  },
+  {
+    title: 'Expert-Led Penetration Testing',
+    description: 'Penetration tests conducted by seasoned cybersecurity experts who leverage decades of experience to simulate real-world attacks. These tests go beyond automated tools, using advanced tactics to uncover vulnerabilities that others often miss.',
+    icon: 'tabler:code',
+  },
+  {
+    title: 'Clear and Actionable Reporting',
+    description: 'Detailed reports that not only identify vulnerabilities but also provide clear, prioritized recommendations for remediation. These reports are designed to be easily understood by both technical teams and executive leadership.',
+    icon: 'tabler:report',
+  },
+  {  
+    title: 'Ongoing Strategic Advisory',
+    description: 'Continuous access to expert advice and strategic guidance as your security needs evolve. This includes helping you navigate the ever-changing threat landscape and ensuring your defenses remain robust.',
+    icon: 'tabler:chart-line',
+  },
+  {
+    title: 'Real-World Attack Simulations',
+    description: 'Comprehensive attack simulations, including ransomware drills and phishing campaigns, that test your organization’s readiness and resilience. These simulations provide invaluable insights into how your team and systems would perform under real attack conditions.',
+    icon: 'tabler:alert-triangle',
+  },
+  {
+    title: 'End-to-End Security Expertise',
+    description: 'A holistic approach to security that covers everything from network and application testing to physical and laptop security. Clients benefit from a complete security solution that addresses all potential attack vectors.',
+    icon: 'tabler:bulb',
+  },
+      ]}
   />
 
   <!-- Content Widget **************** -->
-
   <Content
-    isReversed
-    tagline="Inside template"
-    title="AstroWind's Blueprint: Fun Meets Functionality!"
-    items={[
+    title="Get Strategic"
+     items={[
       {
-        title: 'Built on top of Astro 4.0',
+        title: 'Exceeding Compliance Standards',
         description:
-          'Benefiting from the performance and developer-friendly features of this modern static site generator.',
+          'Our services align with and surpass common compliance requirements, including PCI DSS, HIPAA, and FFIEC, ensuring your organization meets the highest security standards.',
       },
       {
-        title: 'Styled using Tailwind CSS',
+        title: 'Remote Testing Capabilities',
         description:
-          'Facilitating rapid design and consistent styling with this highly popular utility-first CSS framework.',
+          'Our experts can deliver comprehensive testing services remotely, ensuring no compromise in quality or effectiveness.',
       },
       {
-        title: 'Cross-browser compatibility',
+        title: 'Deep Industry Experience',
         description:
-          'Ensure your website looks and functions consistently across various web browsers, delivering a seamless experience to all users.',
+          'With decades of experience in the cybersecurity field, our team has seen and defended against every kind of threat. Our seasoned experts bring a wealth of knowledge and real-world insights to every engagement.',
       },
     ]}
     image={{
@@ -130,46 +108,9 @@ const metadata = {
     }}
   >
     <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Building on modern foundations</h3>
-      Gain a competitive advantage by incorporating industry leading practices
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Decades of Expertise: Proven, Tested, and Trusted</h3>
+      Unparalleled Expertise and Flexibility to Secure Your Future
     </Fragment>
-
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Content>
-
-  <!-- Content Widget **************** -->
-
-  <Content
-    isAfterContent
-    items={[
-      {
-        title: 'High level of customization',
-        description: `Tailor the template effortlessly to match your brand's identity and requirements, making your website distinct and saving you time.`,
-      },
-      {
-        title: 'Multiple layout possibilities',
-        description:
-          'Explore various layout options to find the structure that best presents your content, enhancing user engagement and navigation.',
-      },
-      {
-        title: 'Fully responsive design',
-        description:
-          "Ensure your website's optimal performance on various devices and screen sizes, providing a consistent and enjoyable user experience.",
-      },
-      {
-        title: 'Integration of media',
-        description:
-          'Seamlessly incorporate images, videos, and multimedia elements that enhance your content and engage visitors effectively.',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2194&q=80',
-      alt: 'Blueprint Image',
-    }}
-  >
-    <Fragment slot="content">Ensure your online presence truly represents you.</Fragment>
 
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
@@ -183,63 +124,67 @@ const metadata = {
     isAfterContent
     items={[
       {
-        title: 'Enhanced user engagement',
-        description:
-          'Captivate your audience with interactive elements, intuitive navigation, and visually appealing layouts, encouraging longer visits.',
+        title: 'Pioneers in Specialized Testing',
+        description: `From IoT devices to vehicle security, our custom testing services cover niche areas that many others overlook. We dive deep into the unique challenges posed by hardware and automotive systems.`,
       },
       {
-        title: 'Continuous improvement',
+        title: 'Continuous Learning and Adaptation',
         description:
-          'Ensure your website stays aligned with the latest trends and technologies through regular updates and enhancements.',
+          'In a field where the threat landscape is constantly evolving, our commitment to continuous learning and adaptation ensures that our methods are always at the forefront of cybersecurity.',
       },
       {
-        title: 'Time and resource efficiency',
+        title: 'Custom Solutions for Complex Problems',
         description:
-          'Skip the time-consuming process of building a website from scratch and launch your online presence sooner with AstroWind.',
+          "No two targets are alike, and we pride ourselves on creating custom solutions that address the specific challenges of your environment, whether it’s in hardware, software, or network security.",
       },
       {
-        title: 'Community support',
-        description: `Join the growing AstroWind community for insights, resources, and assistance, ensuring you're never alone on your web development journey.`,
+        title: 'Executive Summaries for Strategic Decisions',
+        description:
+          'Our reports provide not just findings but also in-depth analysis and executive summaries, giving you a complete understanding of your security posture and actionable steps to enhance it.',
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1611462985358-60d3498e0364?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Astronauts Image',
+      src: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2194&q=80',
+      alt: 'Blueprint Image',
     }}
   >
-    <Fragment slot="content">Designed to foster growth and success.</Fragment>
+    <Fragment slot="content">Innovative Testing, Tailored Solutions, and Strategic Insights for Complex Security Challenges</Fragment>
 
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
-  <!-- Steps Widget ****************** -->
 
+
+  <!-- Steps Widget ****************** -->
+  
   <Steps
-    title="Get your dream website up and running in no time with AstroWind."
+    title="Secure Your Future with Strategic Defense."
     items={[
       {
-        title: 'Step 1: <span class="font-medium">Download</span>',
+        title: 'Step 1: <span class="font-medium">Contact Us</span>',
         description:
-          "Kickstart with GitHub! Either fork the AstroWind template or simply click 'Use this template'. Your canvas awaits, ready for your digital masterpiece. In just a few clicks, you've already set the foundation.",
-        icon: 'tabler:package',
+          "Begin your journey to stronger security by reaching out. Contact our team to discuss your specific needs and challenges. We're ready to listen and understand your unique situation.",
+        icon: 'tabler:phone-check',
       },
       {
-        title: 'Step 2: <span class="font-medium">Add content</span>',
+        title: 'Step 2: <span class="font-medium">Schedule Your Assessment</span>',
         description:
-          "Pour your vision into it. Add images, text, and all that jazz to breathe life into your digital space. Remember, it's the content that tells your story, so make it captivating.",
-        icon: 'tabler:letter-case',
+          "Once we've connected, we'll schedule a comprehensive security assessment. Choose a time that works best for you, and we'll take care of the rest, ensuring a thorough evaluation of your security posture.",
+        icon: 'tabler:calendar-bolt',
       },
       {
-        title: 'Step 3: <span class="font-medium">Customize styles</span>',
+        title: 'Step 3: <span class="font-medium">Engage in a Tailored Security Test</span>',
         description:
-          'Give it your personal touch. Tailor colors, fonts, and layouts until it feels just right. Your unique flair, amplified by AstroWind! Precision in design ensures a seamless user experience.',
-        icon: 'tabler:paint',
+          'Our experts will conduct a personalized security test, focusing on your specific threat model and vulnerabilities. This engagement is designed to uncover potential risks and provide actionable insights.',
+        icon: 'tabler:target-arrow',
       },
-      {
-        title: 'Ready!',
-        icon: 'tabler:check',
+      { 
+        title: 'Step 4: <span class="font-medium">Get Clear Results and Recommendations</span>',
+        description:
+          "After the assessment, you'll receive a detailed report with clear results and prioritized recommendations. Our goal is to equip you with the knowledge and tools to strengthen your defenses effectively.",
+        icon: 'tabler:clipboard-data',
       },
     ]}
     image={{
@@ -248,63 +193,87 @@ const metadata = {
     }}
   />
 
-  <!-- Features2 Widget ************** -->
+  <!-- Features2 Widget 
+************** -->
 
   <Features2
-    title="Most used widgets"
-    subtitle="Provides frequently used components for building websites using Tailwind CSS"
-    tagline="Components"
+    id="services"
+    title="Offense for your Defense"
+    subtitle="Custom Offensive Security Services for any Threat Model"
     items={[
-      {
-        title: 'Headers',
-        description: "Ever tried driving without GPS? Boom! That's why websites need headers for direction.",
-        icon: 'flat-color-icons:template',
-      },
-      {
-        title: 'Heros',
-        description:
-          "Picture a superhero landing – epic, right? That's the job of a Hero section, making grand entrances!",
-        icon: 'flat-color-icons:gallery',
-      },
-      {
-        title: 'Features',
-        description:
-          'Where websites strut their stuff and show off superpowers. No holding back on the bragging rights here!',
-        icon: 'flat-color-icons:approval',
-      },
-      {
-        title: 'Content',
-        description:
-          "Dive into the meat and potatoes of a site; without it, you'd just be window shopping. Content is king.",
-        icon: 'flat-color-icons:document',
-      },
-      {
-        title: 'Call-to-Action',
-        description:
-          'That enthusiastic friend who\'s always urging, "Do it! Do it!"? Yeah, that\'s this button nudging you towards adventure.',
-        icon: 'flat-color-icons:advertising',
-      },
-      {
-        title: 'Pricing',
-        description: 'Behold the dessert menu of the website world. Tempting choices await, can you resist?',
-        icon: 'flat-color-icons:currency-exchange',
-      },
-      {
-        title: 'Testimonial',
-        description: 'Step into the gossip corner! Here, other visitors spill the beans and share the juicy details.',
-        icon: 'flat-color-icons:voice-presentation',
-      },
-      {
-        title: 'Contact',
-        description:
-          'Like a digital mailbox, but faster! Drop a line, ask a question, or send a virtual high-five. Ding! Message in.',
-        icon: 'flat-color-icons:business-contact',
-      },
-      {
-        title: 'Footers',
-        description: "The footer's like the credits of a movie but sprinkled with easter eggs. Time to hunt!",
-        icon: 'flat-color-icons:database',
-      },
+    {
+  	title: 'Network Pen Testing',
+  	description: "Think your network is secure? Let us find out. We dive deep to uncover hidden vulnerabilities before attackers do.",
+  	icon: 'tabler:network',
+        link: '/services/network',
+    },
+    {
+  	title: 'Application Security',
+  	description: "Your apps are the gateway to your data. We ensure they’re fortified against any intrusion.",
+  	icon: 'tabler:app-window',
+        link: '/services/web-app',
+    },
+    {
+  	title: 'Wireless Testing',
+  	description: "Hidden SSIDs and WPA2 won’t stop us. We’ll ensure your wireless network isn’t an open door.",
+  	icon: 'tabler:wifi',
+        link: '/services/wireless',
+    },
+    {
+  	title: 'Ransomware Drills',
+  	description: "Simulate the nightmare scenario. Our drills test your resilience against ransomware attacks.",
+  	icon: 'tabler:virus-off',
+        link: '/services/ransomware',
+    },
+    {
+  	title: 'Laptop Security',
+  	description: "Think full-disk encryption is enough? We go beyond, testing every inch of your mobile defenses.",
+  	icon: 'tabler:device-laptop',
+        link: '/services/laptop',
+    },
+    {
+  	title: 'Cloud Security',
+  	description: "Your data is in the cloud. We make sure it stays secure, whether on AWS, Azure, or Google Cloud.",
+  	icon: 'tabler:cloud-lock',
+        link: '/services/cloud',
+    },
+    {
+  	title: 'AI/LLM Testing',
+  	description: "Emerging tech needs emerging security. We test AI and LLMs to ensure they’re as secure as they are smart.",
+  	icon: 'tabler:robot',
+        link: '/services/ai-llm',
+    },
+    {
+  	title: 'Phishing & Social Engineering',
+  	description: "Your people are your first line of defense. We test their readiness against the most cunning attacks.",
+  	icon: 'tabler:user-check',
+        link: '/services/phishing',
+    },
+    {
+  	title: 'Hardware Testing',
+  	description: "From IoT to vehicle systems, we ensure your hardware is locked down tight.",
+  	icon: 'tabler:device-desktop-analytics',
+        link: '/services/hardware',
+    },
+    {
+  	title: 'API Security',
+  	description: "APIs are the backbone of your services. We test them thoroughly to prevent data breaches.",
+  	icon: 'tabler:api',
+        link: '/services/web-api',
+    },
+    {
+  	title: 'Physical Security',
+  	description: "Security isn’t just digital. We assess the physical security of your premises to prevent breaches from all angles.",
+  	icon: 'tabler:square-key',
+        link: '/services/physical',
+    },
+    {
+  	title: 'Security Consulting',
+  	description: "Need a strategic partner? Our consulting services help you build a resilient security posture from the ground up.",
+  	icon: 'tabler:shield-check',
+        link: '/services/cyber-consulting',
+    },
+
     ]}
   >
     <Fragment slot="bg">
@@ -315,64 +284,49 @@ const metadata = {
   <!-- HighlightedPosts Widget ******* -->
 
   <BlogLatestPosts
-    title="Find out more content in our Blog"
-    information={`The blog is used to display AstroWind documentation.
-                        Each new article will be an important step that you will need to know to be an expert in creating a website using Astro + Tailwind CSS.
-                        Astro is a very interesting technology. Thanks.
-                `}
+    title="Read our Blog"
   />
 
   <!-- FAQs Widget ******************* -->
 
   <FAQs
     title="Frequently Asked Questions"
-    subtitle="Dive into the following questions to gain insights into the powerful features that AstroWind offers and how it can elevate your web development journey."
-    tagline="FAQs"
+    subtitle="Answers to Common Questions About Our Cybersecurity Services"
     classes={{ container: 'max-w-6xl' }}
     items={[
       {
-        title: 'Why AstroWind?',
+        title: 'Can you help with emerging technologies like AI and cloud security?',
         description:
-          "Michael Knight a young loner on a crusade to champion the cause of the innocent. The helpless. The powerless in a world of criminals who operate above the law. Here he comes Here comes Speed Racer. He's a demon on wheels.",
+          "Yes, we specialize in testing and securing emerging technologies, including AI/LLM and cloud environments. Additionally, we address modern threats like deepfake social engineering, ensuring that your organization is protected against sophisticated attacks that exploit AI-generated content. Our experts stay ahead of the curve, ensuring your cutting-edge systems are fortified against the latest threats.",
       },
       {
-        title: 'What do I need to start?',
+        title: 'How often should we conduct security testing?',
         description:
-          'Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds. Many say exploration is part of our destiny, but it’s actually our duty to future generations.',
+          'We recommend conducting security testing at least annually, or whenever significant changes are made to your systems. Regular testing ensures that your defenses are up to date and effective against evolving threats.',
       },
       {
-        title: 'How to install the Astro + Tailwind CSS template?',
+        title: 'Can you help us with compliance requirements like PCI DSS and HIPAA?',
         description:
-          "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows.",
+          "Absolutely. Our services are designed to align with and exceed compliance standards such as PCI DSS, HIPAA, FFIEC, and others. We provide the necessary documentation and testing to ensure your organization meets all required security benchmarks.",
       },
       {
-        title: "What's something that you don't understand?",
+        title: "What industries do you serve?",
         description:
-          "A flower in my garden, a mystery in my panties. Heart attack never stopped old Big Bear. I didn't even know we were calling him Big Bear.",
+          "We serve a wide range of industries, including finance, healthcare, manufacturing, technology, and more. Our expertise allows us to adapt our services to the specific challenges and regulatory requirements of each sector.",
       },
       {
-        title: 'What is something that you would like to try again?',
+        title: 'What makes your approach to cybersecurity different?',
         description:
-          "A business big enough that it could be listed on the NASDAQ goes belly up. Disappears! It ceases to exist without me. No, you clearly don't know who you're talking to, so let me clue you in.",
+          "Our decades of experience, combined with our expertise in specialized areas like hardware and vehicle testing, sets us apart. We tailor our testing and consulting services to each client’s unique needs, ensuring testing that goes beyond one-size-fits-all solutions.",
       },
       {
-        title: 'If you could only ask one question to each person you meet, what would that question be?',
+        title: 'What is your methodology for penetration testing?',
         description:
-          "This is not about revenge. This is about justice. A lot of things can change in twelve years, Admiral. Well, that's certainly good to know. About four years. I got tired of hearing how young I looked.",
+          "We follow industry-leading methodologies like OWASP (Open Web Application Security Project) and PTES (Penetration Testing Execution Standard) to ensure thorough and consistent testing. These frameworks guide our approach, from initial reconnaissance to exploitation and reporting, ensuring that every aspect of your security is evaluated to the highest standards.",
       },
     ]}
   />
 
-  <!-- Stats Widget ****************** -->
-
-  <Stats
-    stats={[
-      { title: 'Downloads', amount: '132K' },
-      { title: 'Stars', amount: '24.8K' },
-      { title: 'Forks', amount: '10.3K' },
-      { title: 'Users', amount: '48.4K' },
-    ]}
-  />
 
   <!-- CallToAction Widget *********** -->
 
@@ -380,20 +334,19 @@ const metadata = {
     actions={[
       {
         variant: 'primary',
-        text: 'Get template',
-        href: 'https://github.com/onwidget/astrowind',
+        text: 'Get In Touch',
+        href: '/contact',
         target: '_blank',
-        icon: 'tabler:download',
+        icon: 'tabler:phone-check',
       },
     ]}
   >
     <Fragment slot="title">
-      Astro&nbsp;+&nbsp;<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">Tailwind CSS</span>
+      Secure Your Future
     </Fragment>
 
     <Fragment slot="subtitle">
-      Be very surprised by these huge fake numbers you are seeing on this page. <br class="hidden md:inline" />Don't
-      waste more time! :P
+      Contact us now to start building a stronger, more resilient security posture.
     </Fragment>
   </CallToAction>
 </Layout>

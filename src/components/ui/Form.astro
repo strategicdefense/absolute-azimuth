@@ -5,7 +5,15 @@ import Button from '~/components/ui/Button.astro';
 const { inputs, textarea, disclaimer, button = 'Contact us', description = '' } = Astro.props;
 ---
 
-<form>
+<form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+  <!-- Hidden field for Netlify form handling -->
+  <input type="hidden" name="form-name" value="contact" />
+
+  <!-- Honeypot field (invisible to users) -->
+  <p class="hidden">
+    <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+  </p>
+
   {
     inputs &&
       inputs.map(
@@ -85,3 +93,4 @@ const { inputs, textarea, disclaimer, button = 'Contact us', description = '' } 
     )
   }
 </form>
+
