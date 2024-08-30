@@ -10,14 +10,6 @@ export const headerData = {
       text: 'Services',
       href: getPermalink('/services'),
     },      
-    {     
-      text: 'About',
-      href: getPermalink('/about'),
-    },
-    {     
-      text: 'Contact',
-      href: getPermalink('/contact'),
-    },
     {
       text: 'Industries',
       links: [
@@ -38,6 +30,10 @@ export const headerData = {
     {
       text: 'Blog',
       href: getBlogPermalink(),
+    },
+    { 
+      text: 'About',
+      href: getPermalink('/about'),
     },
   ],
   actions: [{ text: 'Contact', href: getPermalink('/contact') }],
