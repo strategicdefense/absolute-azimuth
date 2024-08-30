@@ -9,7 +9,7 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: Strategic Defense
+    default: Strategic Defense - Next-Level Adversarial Testing Services
     template: '%s'
   description: "Expert-led, goal-based penetration testing services that help keep you one step ahead of the bad guys. All the good stuff, with zero fluff, tailored to the TTPs used by real-world threat actors."
   robots:
@@ -18,7 +18,7 @@ metadata:
   openGraph:
     site_name: Strategic Defense
     images:
-      - url: '/assets/images/colorfulcomputer.png'
+      - url: '/assets/images/colorfulcomputer.webp'
         width: 1200
         height: 628
     type: website
