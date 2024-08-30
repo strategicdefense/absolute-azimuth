@@ -9,7 +9,7 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: Strategic Defense - Next-Level Adversarial Testing Services
+    default: "Strategic Defense - Next-Level Adversarial Testing Services"
     template: '%s'
   description: "Expert-led, goal-based penetration testing services that help keep you one step ahead of the bad guys. All the good stuff, with zero fluff, tailored to the TTPs used by real-world threat actors."
   robots:
