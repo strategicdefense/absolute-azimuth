@@ -11,14 +11,14 @@ metadata:
   title:
     default: Strategic Defense
     template: '%s'
-  description: "\U0001F680 Expert-led, goal-based penetration testing services that help keep you one step ahead of the bad guys. All the good stuff, with zero fluff, tailored to the TTPs used by real-world threat actors."
+  description: "Expert-led, goal-based penetration testing services that help keep you one step ahead of the bad guys. All the good stuff, with zero fluff, tailored to the TTPs used by real-world threat actors."
   robots:
     index: true
     follow: true
   openGraph:
     site_name: Strategic Defense
     images:
-      - url: '~/assets/images/colorfulcomputer.png'
+      - url: '/assets/images/colorfulcomputer.png'
         width: 1200
         height: 628
     type: website
