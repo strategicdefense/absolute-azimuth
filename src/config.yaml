@@ -1,6 +1,6 @@
 site:
   name: Strategic Defense
-  site: 'https://strategicdefense.netlify.app'
+  site: 'https://strategicdefense.co'
   base: '/'
   trailingSlash: false
 
