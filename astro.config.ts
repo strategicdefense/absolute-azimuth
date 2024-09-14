@@ -34,6 +34,7 @@ export default defineConfig({
     sitemap({
       filter: (page) => 
 	page !== 'https://strategicdefense.co/terms' &&
+        page !== 'https://strategicdefense.co/landing2024' &&
         page !== 'https://strategicdefense.co/partner-code-of-conduct', 
     }),
     mdx(),
