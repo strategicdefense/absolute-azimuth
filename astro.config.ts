@@ -31,7 +31,11 @@ export default defineConfig({
     tailwind({
       applyBaseStyles: false,
     }),
-    sitemap(),
+    sitemap({
+      filter: (page) => 
+	page !== 'https://strategicdefense.co/terms' &&
+        page !== 'https://strategicdefense.co/partner-code-of-conduct', 
+    }),
     mdx(),
     icon({
       include: {
