@@ -112,7 +112,7 @@ Use Group Policy to enable and require SMB signing across your network:
   - **Enable security signatures**: Enabled.
   - **Require security signatures**: Enabled.
 
-#### **2. Verify SMB Signing Configuration**
+#### **2. Verify SMB Signing Configuration Using PowerShell**
 - On servers:
   ```powershell
   Set-SmbServerConfiguration -RequireSecuritySignature $true -Force
@@ -122,7 +122,7 @@ Use Group Policy to enable and require SMB signing across your network:
   Set-SmbClientConfiguration -RequireSecuritySignature $true -Force
   ```
 
-#### **3. Disable SMBv1**
+#### **3. Disable SMBv1 Using PowerShell**
 SMBv1 is outdated and inherently insecure. Disable it:
 ```powershell
 Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
