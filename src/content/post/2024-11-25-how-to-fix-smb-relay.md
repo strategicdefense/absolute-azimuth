@@ -13,7 +13,7 @@ publishDate: 2024-11-25T00:00:00Z
 
 At **Strategic Defense**, SMB signing misconfigurations are a frequent finding during our internal penetration tests. These vulnerabilities allow attackers to execute SMB relay 
 attacks, often leading to administrative access on systems we shouldnt have access to. Even better, you can access systems using accounts you don't even have the password for. 
-Tools like Responder, ntlmrelayx, and Coercer make exploiting these misconfigurations even easier.
+Tools like Responder ([which we've talked about before](https://strategicdefense.co/blog/2024/03/2024-03-10-how-to-fix-llmnr)), ntlmrelayx, and Coercer make exploiting these misconfigurations even easier.
 
 SMB signing ensures authenticity and integrity of SMB packets. Without it, attackers can intercept, relay, or even coerce systems into authenticating to them. Fixing these 
 vulnerabilities is a must for any organization aiming to prevent lateral movement and credential compromise.
@@ -145,5 +145,5 @@ SMB signing misconfigurations are a gateway to serious internal network compromi
 they dont require the underlying password to be cracked in order to compromise the account. Tools like **Responder**, **ntlmrelayx**, and **Coercer** highlight the ease with which 
 attackers can exploit these weaknesses. By enforcing SMB signing and hardening other SMB configurations, you can protect your organization from these attacks.
 
-At **Strategic Defense**, we specialize in identifying and remediating vulnerabilities like these during our penetration tests. Contact us to learn how we can help secure your 
-environment against advanced threats.
+At **Strategic Defense**, we specialize in identifying and remediating vulnerabilities like these during our penetration tests. Check out our [services](https://strategicdefense.co/services) to learn 
+how we can help secure your environment against advanced threats.
