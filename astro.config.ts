@@ -35,6 +35,7 @@ export default defineConfig({
       filter: (page) => 
 	page !== 'https://strategicdefense.co/terms' &&
         page !== 'https://strategicdefense.co/landing2024' &&
+	page !== 'https://strategicdefense.co/hackersguide-854b4835-ede9-41bb-b2d6-aff2d32e3518' &&
         page !== 'https://strategicdefense.co/partner-code-of-conduct', 
     }),
     mdx(),
