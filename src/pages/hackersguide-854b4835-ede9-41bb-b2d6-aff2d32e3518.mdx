@@ -91,7 +91,7 @@ hashcat -m 13100 kerberoast_hashes.txt ./wordlist.txt
 - **LLMNR (Link-Local Multicast Name Resolution)** and **NBNS (NetBIOS Name Service)** are fallback name resolution protocols in Windows environments. Attackers can exploit these protocols by responding to broadcast name queries, tricking victims into sending NTLM credentials. Other multicast protocols are at play here, too, such as mDNS. 
 
 ### Why It’s Effective
-- Often enabled by default, and really hard to eradicate fully.
+- Often enabled by default, and [really hard to fully eradicate](https://strategicdefense.co/blog/2024/03/2024-03-10-how-to-fix-llmnr).
 - Attackers capture NTLMv1 or v2 challenge-response hashes. In some cases, you can even lure in plaintext credentials.
 - A stepping stone for lateral movement.
 - No initial credentials needed.
@@ -139,7 +139,7 @@ Invoke-Inveigh -NBNS Y -LLMNR Y
 Active Directory Certificate Services provides certificate-based authentication. If misconfigured, attackers can request or forge certificates, gaining unauthorized access or elevated privileges. Typically, pentesters (and hackers) are hunting for that wild ride from domain user to domain admin - which is very common with ADCS vulns. 
 
 ### Common Misconfigurations
-- Overly permissive templates that allow low-privilege users or machine accounts to enroll in high-privilege certificates.
+- [Overly permissive templates](https://strategicdefense.co/blog/2024/09/2024-09-05-how-to-fix-adcs) that allow low-privilege users or machine accounts to enroll in high-privilege certificates.
 - Weak or unmonitored enrollment processes.
 - Unsecured certificate templates left over from legacy configurations.
 
@@ -264,7 +264,7 @@ NTLM Relay involves intercepting and forwarding NTLM authentication requests fro
 
 ### Why It’s Effective
 - NTLM is still prevalent in legacy environments.
-- If SMB signing is disabled, attackers can relay credentials.
+- If [SMB signing is disabled](https://strategicdefense.co/blog/2024/11/2024-11-25-how-to-fix-smb-relay), attackers can relay credentials.
 - No matter how complex a password is, there’s no need to crack it for lateral movement.
 
 ### Detection & Mitigation (IT Team)

@@ -13,7 +13,7 @@ Sign up for an Internal Penetration Test, and one of the first things your teste
 But wait, let's back up... 
  
 
-### Understanding LLMNR and NetBIOS 
+### Understanding LLMNR, NetBIOS, and mDNS 
 
 Before diving into the specifics of hardening your network environment against certain attack vectors, let’s review the basics of Link-Local Multicast Name Resolution (LLMNR) and NetBIOS Name Service (NBT-NS) (and don't forget about [mDNS](https://f20.be/blog/mdns), but that might be for a future post). These protocols play fundamental roles in network communications, especially in Windows environments, but they also open doors for neat security vulnerabilities. 
 
@@ -41,15 +41,25 @@ NetBIOS Name Service is part of the older NetBIOS over TCP/IP suite, enabling co
 2. **Name Query**: To communicate with another device, a device sends out a NetBIOS name query request. If the target device's name is registered, the NBT-NS responds with the IP address of the target device. 
 3. **Direct Communication**: With the IP address resolved, the querying device can directly communicate with the target device using its NetBIOS name. 
 
-### The Fun 
-While LLMNR and NBT-NS provide convenient name resolution services on local networks, especially in environments where DNS configuration is minimal or non-existent, they also present significant security vulnerabilities. The primary risk comes from the fact that any device on the network can respond to LLMNR or NBT-NS queries, letting them impersonate another device. Attackers can take advantage of this by using tools like Responder to intercept queries and respond with their own location. This technique is particularly effective in man-in-the-middle (MITM) attacks, where the attacker positions themselves between the querying device and the legitimate responder. 
+#### Multicast DNS (mDNS)
+mDNS, similar to LLMNR, is a name resolution protocol that operates within a local network without relying on a central DNS server.  It's commonly used by devices like printers, smart TVs, and other IoT devices to advertise their services and discover other devices on the network.  Apple's Bonjour is a well-known implementation of mDNS.
+
+**How mDNS Works:**
+
+1. **Service Announcement:** Devices periodically broadcast mDNS queries announcing their services (e.g., "I'm a printer named 'SuperCoolPrinter'").
+2. **Service Discovery:** Devices looking for a specific service (e.g., a printer) send out mDNS queries.
+3. **Response:** Devices offering the requested service respond with their name and IP address.
+
+
+### The Risks
+While LLMNR, NBT-NS, and mDNS provide convenient name resolution services on local networks, especially in environments where DNS configuration is minimal or non-existent, they also present significant security vulnerabilities. The primary risk comes from the fact that any device on the network can respond to LLMNR or NBT-NS queries, letting them impersonate another device. Attackers can take advantage of this by using tools like Responder to intercept queries and respond with their own location. This technique is particularly effective in man-in-the-middle (MITM) attacks, where the attacker positions themselves between the querying device and the legitimate responder. 
 
 By default, Responder will answer all LLMNR and NBT-NS queries, setting it’s own IP address as the resolved name. This entices all systems to connect to the attacker's system, which then presents a slew of ‘fake’ services (think HTTP, LDAP, MSSQL) that present authentication. Domain-joined Windows systems will send the NetNTLM hash of the currently logged-on user, which Responder happily captures and saves.  
 
 Typically, all this happens silently in the background. On a populated network with a hundred users, it can result in several NetNTLM hashes every minute. Attackers can take the hashes offline to crack or use something like [ntlmrelayx](https://github.com/fortra/impacket/blob/master/examples/ntlmrelayx.py) to relay those authentication attempts to other systems.  
 
  
-### How do I Disable LLMNR and NetBIOS Name Service? 
+### How do I disable these?
 
 Thankfully, disabling these protocols is easy. Of course, there’s a few caveats: 
 
@@ -71,9 +81,24 @@ Thankfully, disabling these protocols is easy. Of course, there’s a few caveat
 
 1. **Network Adapter Settings**: Open `Control Panel -> Network and Sharing Center -> Change adapter settings`. Right-click on your network connection, select `Properties`, then `Internet Protocol Version 4 (TCP/IPv4)`, and click `Properties`. Click `Advanced`, navigate to the `WINS` tab, and select `Disable NetBIOS over TCP/IP`. 
 
-
 2. **DHCP Server**: If your network uses DHCP, you can disable NetBIOS over TCP/IP for all clients through the DHCP options. Set the DHCP option 001 to `0x2`, which tells client computers to disable NetBIOS over TCP/IP. 
 
+### Mitigating mDNS:
+
+mDNS is more challenging to disable completely as it's often baked into devices.  Here are some strategies:
+
+1. **Firewall Rules:** Configure your firewall to block or restrict mDNS traffic (port 5353, both UDP and TCP) between devices that don't need to use it. This is particularly important for isolating sensitive parts of your network.
+2. **mDNS Gateway/Proxy:** For larger networks, consider using an mDNS gateway or proxy. This allows you to control and filter mDNS traffic, preventing unwanted announcements and discovery.
+3. **Device Configuration:** Check the settings of devices that use mDNS (printers, smart TVs, etc.). Some may offer options to disable or limit mDNS functionality. Note that many devices, especially consumer-grade ones, may not offer this level of control.
+4. **VLAN Segmentation:** Isolate IoT devices and other systems that rely heavily on mDNS onto separate VLANs. This limits the potential impact of mDNS-related attacks.
+5. **Monitoring:** Monitor your network for unusual mDNS traffic. While not a preventative measure, it can help you detect potential attacks.
+6. **Chromebook Considerations:** Chromebooks use mDNS for device discovery (e.g., finding nearby printers). If you manage Chromebooks in an enterprise environment, explore Chrome OS policies related to mDNS. However, for personal Chromebooks, you'll have less control.
+
+That said, you can disable mDNS via Poweshell, although it may break things:
+```powershell
+# Powershell to set mDNS to disabled
+set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters\" -Name EnableMDNS -Value 0 -Type DWord
+```
 
 ### Verification and Continuous Monitoring 
 
