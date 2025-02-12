@@ -226,14 +226,15 @@ Password spraying involves testing commonly used passwords (Winter2025!, Company
 - **Log Monitoring**: Look for patterns of distributed login failures.
 - **Strict Password Policy**: Enforce length and complexity, and check for leaked passwords.
 - **Smart Lockout**: Using cloud security like o365's Smart Lockout helps stop password spraying attacks. 
+
 ### Example Commands (Blue Team / IT)
 ```powershell
 # Gathering and reviewing failed login attempts
 Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} | \
     Select TimeCreated, Message | Out-File "FailedLogons.txt"
 
-# Setting account lockout policy
-Set-ADAccountLockoutPolicy -MaxPasswordAge 30 -LockoutThreshold 3 -LockoutDuration 30
+# View the password / lockout policy
+Get-ADDefaultDomainPasswordPolicy
 ```
 
 ### Pentester’s Perspective
@@ -292,7 +293,8 @@ Get-WinEvent -FilterHashtable @{LogName='Security';Id=4776}
 nxc smb 10.0.0.0/24
 nmap --script smb-security-mode 10.0.0.0/24
 
-# Setup a NTLM Relay attack with Impacket's ntlmrelayx. Run Responder first, so you have a method for soliciting inbound connections you can then relay.
+# Setup a NTLM Relay attack with Impacket's ntlmrelayx. 
+# Protip: Run Responder first, so you have a method for soliciting inbound connections you can then relay.
 sudo ntlmrelayx.py -tf targets.txt -smb2support
 
 
