@@ -46,7 +46,9 @@ Kerberoasting is a technique where attackers target service accounts within Acti
 - **Strong Password Policy**: Enforce complex, lengthy passwords for service accounts.
 - **Regular Rotation**: Change service account passwords frequently.
 - **Enable AES Encryption**: Using AES Kerberos tickets makes cracking more difficult.
-- **Use Honey SPNs**: Create decoy SPNs to detect illicit requests - most pentesters request all SPNs at once!
+- **Use Honey SPNs**: Create decoy SPNs to detect illicit requests - most pentest tooling is configured (by default) to request every ticket at once, which is not a normal kerberos activity. 
+
+Another trick we've seen used with high success is to create a domain user account with a _very_ weak password. Make sure this account has near-zero permissions. Even better, add it to a _Developer Admins_ group with zero permissions, just to make it enticing. Configure it for SPN, and then configure your MDR / XDR to throw a critical alert if this account ever logs in. If this is the first kerberoastable account that cracks, and a pentester / hacker tries to authenticate with it, you will be hot on their trail.
 
 ### Example Commands (Blue Team / IT)
 ```powershell
@@ -88,7 +90,7 @@ hashcat -m 13100 kerberoast_hashes.txt ./wordlist.txt
 ## 2. LLMNR and NBNS Poisoning
 
 ### What Is LLMNR/NBNS?
-- **LLMNR (Link-Local Multicast Name Resolution)** and **NBNS (NetBIOS Name Service)** are fallback name resolution protocols in Windows environments. Attackers can exploit these protocols by responding to broadcast name queries, tricking victims into sending NTLM credentials. Other multicast protocols are at play here, too, such as mDNS. 
+- **LLMNR (Link-Local Multicast Name Resolution)** and **NBNS (NetBIOS Name Service)** are fallback name resolution protocols in Windows environments. Attackers can exploit these protocols by responding to broadcast name queries, tricking victims into sending NTLM credentials. Other multicast protocols are at play here, too, such as **mDNS**. 
 
 ### Why It’s Effective
 - Often enabled by default, and [really hard to fully eradicate](https://strategicdefense.co/blog/2024/03/2024-03-10-how-to-fix-llmnr).
@@ -99,7 +101,7 @@ hashcat -m 13100 kerberoast_hashes.txt ./wordlist.txt
 ### Detection & Mitigation (IT Team)
 - **Disable LLMNR and NBNS**: Turn off these protocols via Group Policy or registry changes.
 - **Use DNS Suffix Search**: Ensure DNS is the primary method for name resolution.
-- **Monitor for Responder/Inveigh**: Watch network traffic for suspicious activity.
+- **Monitor for Responder/Inveigh**: Watch network traffic for suspicious activity - several tools exist to do this. They regularly for a host that should not exist, and if it gets an answer, there's some funny business going on. 
 - **SMB Signing**: Prevents attackers from relaying captured hashes.
 - **Strong Passwords**: The more complex the password, the more difficult they are to crack.
 - **Network / EDR**: Most modern EDR and network security appliances have built-in detections for multicast abuse. Several open-source options exist, too.
@@ -111,6 +113,9 @@ Get-NetAdapter | Get-NetIPConfiguration | Select-Object -ExpandProperty Interfac
 
 # Check if NetBIOS Nameservice is enabled (0 = disabled, 1 = enabled)
 Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object {$_.IPEnabled -eq $true} | Select-Object -ExpandProperty NetConnectionID, SettingID, TcpipNetbiosOptions
+
+# Check if mDNS is enabled
+Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" -Name "mDNSEnabled"
 
 ```
 
