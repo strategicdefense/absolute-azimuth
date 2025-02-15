@@ -22,7 +22,7 @@ Another thing to note – it’s really hard to make a ‘top X’ list for pent
 
 ## Table of Contents
 1. [Kerberoasting](#1-kerberoasting)
-2. [LLMNR and NBNS Poisoning](#2-llmnr-and-nbns-poisoning)
+2. [Multicast Poisoning](#2-multicast-poisoning)
 3. [AD CS (Active Directory Certificate Services) Misconfigurations](#3-ad-cs-active-directory-certificate-services-misconfigurations)
 4. [Password Spraying](#4-password-spraying)
 5. [NTLM Relay](#5-ntlm-relay)
@@ -87,10 +87,10 @@ hashcat -m 13100 kerberoast_hashes.txt ./wordlist.txt
 
 ---
 
-## 2. LLMNR and NBNS Poisoning
+## 2. Multicast Poisoning
 
 ### What Is LLMNR/NBNS?
-- **LLMNR (Link-Local Multicast Name Resolution)** and **NBNS (NetBIOS Name Service)** are fallback name resolution protocols in Windows environments. Attackers can exploit these protocols by responding to broadcast name queries, tricking victims into sending NTLM credentials. Other multicast protocols are at play here, too, such as **mDNS**. 
+- **LLMNR (Link-Local Multicast Name Resolution)** and **NBNS (NetBIOS Name Service)** are unauthenticated multicast protocols, what could go wrong? They are the fallback name resolution protocols common in Windows environments. Attackers can exploit these protocols by responding to broadcast name queries, tricking victims into sending NTLM credentials. Other multicast protocols are at play here, too, such as **mDNS**. 
 
 ### Why It’s Effective
 - Often enabled by default, and [really hard to fully eradicate](https://strategicdefense.co/blog/2024/03/2024-03-10-how-to-fix-llmnr).
