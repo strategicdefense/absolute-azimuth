@@ -1,0 +1,68 @@
+---
+title: "Strategic Defense CMMC Consulting"
+layout: '~/layouts/MarkdownLayout.astro'
+---
+
+We’ve got decades of experience with NIST standards and are willing to share notes.
+
+<img src="/assets/images/cowboy.webp" alt="cowboy" width="600" />
+
+
+## Overview 
+
+CMMC is a program created by the DOD to improve the cybersecurity posture of the Defense Industry Base (DIB). Defense Federal Acquisition Regulation Supplement DFARS clause 252.204-7012 was published in 2015 – it required DIB’s dealing with Controlled Unclassified Information (CUI) to protect it by implementing the NIST 800-171 controls (110 controls) DFARS clause 252.204-7021 was published in 2024 and went into effect in early 2025. This established the independent audit requirements. If you are a member of the Defence Industry Base (DIB), it's extrmely likely that you will be impacted by CMMC in some fashion.
+
+## What is Level 1 and Level 2?
+### Level 1:
+
+- Level 1 means the company only deals with Federal Contract Information (FCI).
+
+- The company has to implement 15 controls from 800-171 R2
+
+- Self Attestation IS allowed
+
+- IF a fraudulent claim is made on the attestation, the company AND the persons signing off on the attestation (typically the CEO, CIO, etc) can be sued under the False Claims Act up to and including criminal prosecution.
+
+### Level 2:
+
+- Level 2: deals with CUI (and FCI), but the scopes can be different
+
+- Level 2 requires all 110 controls from 800-171 R2 be implemented and documented for the CUI data
+
+- Certified 3rd Party Audit Organizations have to perform the audit (C3PAO)
+
+- Certified CMMC Auditors (CCA) conduct audits
+
+- CCAs have ~ 80 hours of training on just CMMC, take 2 exams, and pass a Tier 3 BG check as well as a minimum of 1 year of cybersecurity assessment experience and a minumum of one relevant cybersecurity certification.
+
+**How can Strategic Defense help?:** Strategic Defense can help with consulting services and secure enclave development. When working with Strategic Defense you will be working with a CCA who can help you through the complex and often confusing CMMC controls and assessment process. We will give you practical and effective guidance to help you feel confident that you are on the right path.
+
+## Benefits
+- **Ability to bid and receive DOD contracts:** If you are not following the CMMC guidelines you will be unable to bid on and receive DOD contracts.
+
+Our team’s deep-rooted experience in cybersecurity can help your organization make sense of the CMMC requirements.
+
+
+---
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+  
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',  
+        text: 'Get In Touch',
+        href: '/contact',
+        target: '_blank',
+        icon: 'tabler:phone-check',
+      },
+    ]}  
+  >
+    <Fragment slot="title">
+      Secure Your Future
+    </Fragment>
+    
+    <Fragment slot="subtitle">
+      Contact us now to start building a stronger, more resilient security posture.
+    </Fragment>  
+  </CallToAction>
